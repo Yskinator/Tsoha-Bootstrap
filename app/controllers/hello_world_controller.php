@@ -11,7 +11,13 @@
     public static function sandbox(){
         // Testaa koodiasi täällä
         //echo 'Hello World!';
-        View::make('helloworld.html');
+        //View::make('helloworld.html');
+        
+        $ti = Time_And_Place::find(1);
+        $times_and_places = Time_And_Place::all();
+        
+        Kint::dump($times_and_places);
+        Kint::dump($ti);
     }
     public static function checklistplan(){
         View::make('suunnitelmat/checklist.html');
