@@ -12,10 +12,11 @@
  * @author ville-matti
  */
 class Category extends BaseModel{
-    public $id, $category_name, $supercategory;
+    public $id, $category_name, $supercategory, $subcategories;
 
     public function __construct($attributes){
         parent::__construct($attributes);
+        $this->subcategories = Category::findChildren($this->id);
     }
     
     public static function all(){
@@ -33,6 +34,23 @@ class Category extends BaseModel{
             ));
         }
         
+        return $categories;
+    }
+    
+    public static function findChildren($id){
+        $statement = 'SELECT * FROM CATEGORY WHERE supercategory = :id';
+        $query = DB::connection()->prepare($statement);
+        $query->execute(array('id' => $id));
+        $rows = $query->fetchAll();
+        $categories = array();
+        
+        foreach($rows as $row){
+            $categories[] = new Category(array(
+                'id' => $row['id'],
+                'category_name' => $row['category_name'],
+                'supercategory' => $row['supercategory']
+            ));
+        }
         return $categories;
     }
     
