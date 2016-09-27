@@ -1,0 +1,25 @@
+{% macro display(categories) %}
+    {% import _self as checklist %}
+    {% for category in categories %}
+        <li class="list-group-item">
+            <strong>{{ category.category_name }}</strong><a href="#" class="btn btn-default">Lisää kategoria</a><a href="#" class="btn btn-default">Lisää aika/paikka</a><a href="#" class="btn btn-default">Lisää merkintä</a><a href="#" class="btn btn-danger">Poista</a>
+            {% if not category.subcategories is empty %}
+                <ul class="list-group">
+                    {{ checklist.display(category.subcategories) }}
+                </ul>
+            {% endif %}
+        </li>
+    {% endfor %}
+{% endmacro %}
+
+{% import _self as checklist %}
+
+{% extends "base.html" %}
+{% block content %}
+
+<h1>Käyttäjän Ville-Matti muistilista</h1>
+<ul class="list-group">
+    {{ checklist.display(root_category.subcategories) }}
+</ul>
+
+{% endblock %}
