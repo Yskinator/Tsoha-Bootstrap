@@ -38,7 +38,7 @@ class Users extends BaseModel{
     }
     
     public static function find($id){
-        $query = DB::connection()->prepare('SELECT * FROM USERS id = :id LIMIT 1');
+        $query = DB::connection()->prepare('SELECT * FROM USERS WHERE id = :id LIMIT 1');
         $query->execute(array('id' => $id));
         $row = $query->fetch();
         
