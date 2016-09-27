@@ -11,3 +11,7 @@
   $routes->get('/checklistplan', function() {
     HelloWorldController::checklistplan();
   });
+  
+  $routes->get('/categories', function() {
+      CategoryController::index();
+  });
