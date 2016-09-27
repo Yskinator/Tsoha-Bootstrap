@@ -72,6 +72,25 @@ class Category extends BaseModel{
         return null;
     }
     
+    public static function findByName($category_name){
+        $statement = 'SELECT * FROM CATEGORY WHERE category_name = :category_name LIMIT 1';
+        $query = DB::connection()->prepare($statement);
+        $query->execute(array('category_name' => $category_name));
+        $row = $query->fetch();
+        
+        if($row){
+            $category = new Category(array(
+                'id' => $row['id'],
+                'category_name' => $row['category_name'],
+                'supercategory' => $row['supercategory']
+            ));
+            
+            return $category;
+        }
+        
+        return null;
+    }
+    
     public function save(){
         $query = DB::connection()->prepare('INSERT INTO CATEGORY (category_name, supercategory) VALUES (:category_name, :supercategory)');
         $query->execute(array(
