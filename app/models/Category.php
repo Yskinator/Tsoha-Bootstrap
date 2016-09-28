@@ -92,7 +92,7 @@ class Category extends BaseModel{
     }
     
     public function save(){
-        $query = DB::connection()->prepare('INSERT INTO CATEGORY (category_name, supercategory) VALUES (:category_name, :supercategory)');
+        $query = DB::connection()->prepare('INSERT INTO CATEGORY (category_name, supercategory) VALUES (:category_name, :supercategory) RETURNING id');
         $query->execute(array(
             'category_name' => $this->category_name,
             'supercategory' => $this->supercategory

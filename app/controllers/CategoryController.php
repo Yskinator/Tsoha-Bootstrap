@@ -24,7 +24,6 @@ class CategoryController extends BaseController{
             'supercategory' => $params['supercategory']
         ));
         $category->save();
-        
-        Redirect::to('muistilista/categories', array('message' => 'Uusi kategoria lisätty!'));
+        Redirect::to('/categories', array('message' => 'Uusi kategoria lisätty!'));
     }
 }
