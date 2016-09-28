@@ -16,4 +16,15 @@ class CategoryController extends BaseController{
         $root_category = Category::findByName('');
         View::make('category/index.html', array('root_category' => $root_category));
     }
+    
+    public static function store(){
+        $params = $_POST;
+        $category = new Category(array(
+            'category_name' => $params['category_name'],
+            'supercategory' => $params['supercategory']
+        ));
+        $category->save();
+        
+        Redirect::to('muistilista/categories', array('message' => 'Uusi kategoria lisätty!'));
+    }
 }

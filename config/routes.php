@@ -12,6 +12,12 @@
     HelloWorldController::checklistplan();
   });
   
+  $routes->post('/categories', function() {
+      CategoryController::store();
+  });
+  
   $routes->get('/categories', function() {
       CategoryController::index();
   });
+  
+
