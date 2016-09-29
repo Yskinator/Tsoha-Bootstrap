@@ -14,7 +14,7 @@
 
 {% macro rootAddButton(root_category) %}
     {%import _self as checklist %}
-    {{ checklist.addButton(category) }}
+    {{ checklist.addButton(root_category) }}
 {% endmacro %}
 
 {% macro addButton(category) %}
