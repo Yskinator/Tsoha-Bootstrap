@@ -12,11 +12,13 @@
  * @author ville-matti
  */
 class Category extends BaseModel{
-    public $id, $category_name, $supercategory, $subcategories;
+    public $id, $category_name, $supercategory, $subcategories, $notes, $times_and_places;
 
     public function __construct($attributes){
         parent::__construct($attributes);
-        $this->subcategories = Category::findChildren($this->id);
+        $this->subcategories = Category::findChildCategories($this->id);
+        $this->notes = Category::findNotes($this->id);
+        $this->times_and_places = Category::findTimes_And_Places($this->id);
     }
     
     public static function all(){
@@ -37,7 +39,7 @@ class Category extends BaseModel{
         return $categories;
     }
     
-    public static function findChildren($id){
+    public static function findChildCategories($id){
         $statement = 'SELECT * FROM CATEGORY WHERE supercategory = :id';
         $query = DB::connection()->prepare($statement);
         $query->execute(array('id' => $id));
@@ -52,6 +54,43 @@ class Category extends BaseModel{
             ));
         }
         return $categories;
+    }
+    
+    public static function findNotes($id){
+        $statement = 'SELECT * FROM NOTE WHERE supercategory = :id';
+        $query = DB::connection()->prepare($statement);
+        $query->execute(array('id' => $id));
+        $rows = $query->fetchAll();
+        $notes = array();
+        
+        foreach($rows as $row){
+            $notes[] = new Note(array(
+                'id' => $row['id'],
+                'note' => $row['note'],
+                'supercategory' => $row['supercategory']
+            ));
+        }
+        return $notes;
+    }
+    
+    public static function findTimes_And_Places($id){
+        $statement = 'SELECT * FROM TIME_AND_PLACE WHERE supercategory = :id';
+        $query = DB::connection()->prepare($statement);
+        $query->execute(array('id' => $id));
+        $rows = $query->fetchAll();
+        $times_and_places = array();
+        
+        foreach($rows as $row){
+            $times_and_places[] = new Time_And_Place(array(
+                'id' => $row['id'],
+                'dow' => $row['dow'],
+                'start_time' => $row['start_time'],
+                'end_time' => $row['end_time'],
+                'location' => $row['location'],
+                'supercategory' => $row['supercategory']
+            ));
+        }
+        return $times_and_places;
     }
     
     public static function find($id){
