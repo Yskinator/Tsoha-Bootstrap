@@ -12,6 +12,11 @@
     {% endfor %}
 {% endmacro %}
 
+{% macro rootAddButton(root_category) %}
+    {%import _self as checklist %}
+    {{ checklist.addButton(category) }}
+{% endmacro %}
+
 {% macro addButton(category) %}
     {% import _self as checklist %}
     <div class="btn-group">
@@ -43,6 +48,7 @@
 {% block content %}
 
 <h1>Käyttäjän Ville-Matti muistilista</h1>
+{{ checklist.rootAddButton(root_category) }}
 <ul class="list-group">
     {{ checklist.display(root_category.subcategories) }}
 </ul>
