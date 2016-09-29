@@ -55,7 +55,7 @@ class Note extends BaseModel{
     }
     
     public function save(){
-        $query = DB::connection()->prepare('INSERT INTO NOTE (note, supercategory) VALUES (:note, :supercategory)');
+        $query = DB::connection()->prepare('INSERT INTO NOTE (note, supercategory) VALUES (:note, :supercategory) RETURNING id');
         $query->execute(array(
             'note' => $this->note,
             'supercategory' => $this->supercategory
