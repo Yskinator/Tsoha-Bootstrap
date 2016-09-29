@@ -8,3 +8,7 @@
   max-width: 1200px;
   margin: 0px auto;
 }
+
+.list-group{
+    margin-bottom:0px;
+}
