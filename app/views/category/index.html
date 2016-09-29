@@ -2,9 +2,14 @@
     {% import _self as checklist %}
     {% for category in categories %}
         <li class="list-group-item">
-            <strong>{{ category.category_name }}</strong>{{ checklist.addButton(category) }}<a href="#" class="btn btn-default">Lisää aika/paikka</a><a href="#" class="btn btn-default">Lisää merkintä</a><a href="#" class="btn btn-danger">Poista</a>
-            {% if not category.subcategories is empty %}
+            <strong>{{ category.category_name }}</strong>{{ checklist.addCategoryButton(category) }} {{ checklist.addNoteButton(category) }}<a href="#" class="btn btn-default">Lisää aika/paikka</a><a href="#" class="btn btn-danger">Poista</a>
+            {% if not category.subcategories is empty or not category.notes is empty or category.times_and_places is empty %}
                 <ul class="list-group">
+                    {% for note in category.notes %}
+                        <li class="list-group-item">
+                            <p>{{ note.note }}</p>
+                        </li>
+                    {% endfor %}
                     {{ checklist.display(category.subcategories) }}
                 </ul>
             {% endif %}
@@ -14,20 +19,45 @@
 
 {% macro rootAddButton(root_category) %}
     {%import _self as checklist %}
-    {{ checklist.addButton(root_category) }}
+    {{ checklist.addCategoryButton(root_category) }}
 {% endmacro %}
 
-{% macro addButton(category) %}
+{% macro addCategoryButton(category) %}
     {% import _self as checklist %}
     <div class="btn-group">
         <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
           Lisää kategoria
         </button>
         <div class="dropdown-menu">
-            <form method="post" action="{{base_path}}">
+            <form method="post" action="categories">
                 <div class="form-group">
                   <label>Nimi</label>
                   <input type="text" name="category_name" class="form-control">
+                </div>
+
+                <div class="form-group">
+                  <input type="hidden" name="supercategory" value="{{ category.id }}" class="form-control">
+                </div>
+
+                <div class="form-group">
+                  <button type="submit" class="btn btn-primary">Lisää</button>
+                </div>
+          </form>
+        </div>
+  </div>
+{% endmacro %}
+
+{% macro addNoteButton(category) %}
+    {% import _self as checklist %}
+    <div class="btn-group">
+        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+          Lisää merkintä
+        </button>
+        <div class="dropdown-menu">
+            <form method="post" action="notes">
+                <div class="form-group">
+                  <label>Merkintä</label>
+                  <input type="text" name="note" class="form-control">
                 </div>
 
                 <div class="form-group">

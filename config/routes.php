@@ -20,4 +20,7 @@
       CategoryController::index();
   });
   
+  $routes->post('/notes', function() {
+      NoteController::store();
+  });
 
