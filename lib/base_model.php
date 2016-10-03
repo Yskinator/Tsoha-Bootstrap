@@ -14,6 +14,25 @@
         }
       }
     }
+    
+    public function validate_string_exists($str, $strName){
+        $errors = array();
+        if($str == '' || $str == null){
+            $errors[] = $strName.' ei saa olla tyhjä.';
+        }
+        return $errors;
+    }
+    
+    public function validate_string_length($str, $strMin, $strMax, $strName){
+        $errors = array();
+        if(strlen($str) < $strMin){
+            $errors[] = $strName.' täytyy olla vähintään '.$strMin.' merkkiä.';
+        }
+        if(strlen($str) > $strMax){
+            $errors[] = $strName.' saa olla enintään '.$strMax.' merkkiä.';
+        }
+        return $errors;
+    }
 
     public function errors(){
       // Lisätään $errors muuttujaan kaikki virheilmoitukset taulukkona
