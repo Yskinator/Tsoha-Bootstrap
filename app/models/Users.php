@@ -57,7 +57,7 @@ class Users extends BaseModel{
     }
     
     public function save(){
-        $query = DB::connection()->prepare('INSERT INTO USERS (username, password, list_root) VALUES (:username, password, list_root)');
+        $query = DB::connection()->prepare('INSERT INTO USERS (username, password, list_root) VALUES (:username, password, list_root) RETURNING id');
         $query->execute(array(
             'username' => $this->username,
             'password' => $this->password,
