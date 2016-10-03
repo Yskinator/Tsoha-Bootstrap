@@ -12,7 +12,7 @@
  * @author ville-matti
  */
 class Category extends BaseModel{
-    public $id, $category_name, $supercategory, $subcategories, $notes, $times_and_places;
+    public $id, $name, $supercategory, $subcategories, $notes, $times_and_places;
 
     public function __construct($attributes){
         parent::__construct($attributes);
@@ -31,7 +31,7 @@ class Category extends BaseModel{
         foreach($rows as $row){
             $categories[] = new Category(array(
                 'id' => $row['id'],
-                'category_name' => $row['category_name'],
+                'name' => $row['name'],
                 'supercategory' => $row['supercategory']
             ));
         }
@@ -49,7 +49,7 @@ class Category extends BaseModel{
         foreach($rows as $row){
             $categories[] = new Category(array(
                 'id' => $row['id'],
-                'category_name' => $row['category_name'],
+                'name' => $row['name'],
                 'supercategory' => $row['supercategory']
             ));
         }
@@ -101,7 +101,7 @@ class Category extends BaseModel{
         if($row){
             $category = new Category(array(
                 'id' => $row['id'],
-                'category_name' => $row['category_name'],
+                'name' => $row['name'],
                 'supercategory' => $row['supercategory']
             ));
             
@@ -111,16 +111,16 @@ class Category extends BaseModel{
         return null;
     }
     
-    public static function findByName($category_name){
-        $statement = 'SELECT * FROM CATEGORY WHERE category_name = :category_name LIMIT 1';
+    public static function findByName($name){
+        $statement = 'SELECT * FROM CATEGORY WHERE name = :name LIMIT 1';
         $query = DB::connection()->prepare($statement);
-        $query->execute(array('category_name' => $category_name));
+        $query->execute(array('name' => $name));
         $row = $query->fetch();
         
         if($row){
             $category = new Category(array(
                 'id' => $row['id'],
-                'category_name' => $row['category_name'],
+                'name' => $row['name'],
                 'supercategory' => $row['supercategory']
             ));
             
@@ -131,9 +131,9 @@ class Category extends BaseModel{
     }
     
     public function save(){
-        $query = DB::connection()->prepare('INSERT INTO CATEGORY (category_name, supercategory) VALUES (:category_name, :supercategory) RETURNING id');
+        $query = DB::connection()->prepare('INSERT INTO CATEGORY (name, supercategory) VALUES (:name, :supercategory) RETURNING id');
         $query->execute(array(
-            'category_name' => $this->category_name,
+            'name' => $this->name,
             'supercategory' => $this->supercategory
         ));
         $row = $query->fetch();

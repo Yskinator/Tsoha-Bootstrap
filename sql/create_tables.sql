@@ -1,6 +1,6 @@
 CREATE TABLE CATEGORY(
     id SERIAL PRIMARY KEY,
-    category_name varchar(200) NOT NULL,
+    name varchar(200) NOT NULL,
     supercategory INTEGER REFERENCES CATEGORY(id)
 );
 

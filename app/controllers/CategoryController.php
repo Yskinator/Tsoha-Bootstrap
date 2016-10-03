@@ -20,7 +20,7 @@ class CategoryController extends BaseController{
     public static function store(){
         $params = $_POST;
         $category = new Category(array(
-            'category_name' => $params['category_name'],
+            'name' => $params['name'],
             'supercategory' => $params['supercategory']
         ));
         $category->save();
