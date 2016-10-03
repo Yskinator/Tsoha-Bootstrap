@@ -13,7 +13,7 @@
  */
 class CategoryController extends BaseController{
     public static function index(){
-        $root_category = Category::findByName('');
+        $root_category = Category::findByName('root');
         View::make('category/index.html', array('root_category' => $root_category));
     }
     
