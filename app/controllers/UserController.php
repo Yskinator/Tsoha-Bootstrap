@@ -17,7 +17,7 @@ class UserController {
         $user = Users::authenticate($params['username'], $params['password']);
         
         if(!$user){
-            View::make('/', array('error' => 'Väärä käyttäjätunnus tai salasana!', 'username' => $params['username']));
+            Redirect::to('/', array('error' => 'Väärä käyttäjätunnus tai salasana!', 'username' => $params['username']));
         }else{
             $_SESSION['user'] = $user->id;
 
