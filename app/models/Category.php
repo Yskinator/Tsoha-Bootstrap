@@ -19,6 +19,7 @@ class Category extends BaseModel{
         $this->subcategories = Category::findChildCategories($this->id);
         $this->notes = Category::findNotes($this->id);
         $this->times_and_places = Category::findTimes_And_Places($this->id);
+        $this->validators = array('validateName', 'validateSupercategory');
     }
     
     public static function all(){
@@ -138,5 +139,34 @@ class Category extends BaseModel{
         ));
         $row = $query->fetch();
         $this->id = $row['id'];
+    }
+    
+    public function validateName(){
+        //Tarkista, että nimi ei ole tyhjä tai null
+        $errors = $this->validate_string_exists($this->name, 'Kategorian nimi');
+        //Tarkista, että nimen pituus on vähintään 2 ja enintään 200 merkki'
+        $errors = array_merge($errors, $this->validate_string_length($this->name, 2, 200, 'Kategorian nimen'));
+        return $errors;
+    }
+    
+    public function validateSupercategory(){
+        $errors = array();
+        if($this->name != "root"){
+            $query = DB::connection()->prepare('SELECT id FROM CATEGORY WHERE id = :supercategory LIMIT 1');
+            $query->execute(array('supercategory' => $this->supercategory));
+            $row = $query->fetch();
+            
+            if(!$row){
+                $errors[] = 'Yläkategoriaa ei löytynyt tietokannasta.';
+            }
+        }
+        else
+        {
+            if($this->supercategory != null)
+            {
+                $errors[] = 'Juurikategorialla ei pitäisi olla yläkategoriaa!';
+            }
+        }
+        return $errors;
     }
 }
