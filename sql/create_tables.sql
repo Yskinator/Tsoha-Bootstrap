@@ -4,7 +4,7 @@ CREATE TABLE CATEGORY(
     supercategory INTEGER REFERENCES CATEGORY(id)
 );
 
-CREATE TABLE Users(
+CREATE TABLE USERS(
     id SERIAL PRIMARY KEY,
     username varchar(40) NOT NULL,
     password varchar(40) NOT NULL,
