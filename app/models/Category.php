@@ -150,6 +150,18 @@ class Category extends BaseModel{
     }
     
     public function delete(){
+        foreach($this->subcategories as $subcategory)
+        {
+            $subcategory->delete();
+        }
+        foreach($this->notes as $note)
+        {
+            $note->delete();
+        }
+        foreach($this->times_and_places as $tp)
+        {
+            $tp->delete();
+        }
         $query = DB::connection()->prepare('DELETE FROM CATEGORY WHERE id = :id');
         $query->execute(array(
             'id' => $this->id

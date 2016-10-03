@@ -63,4 +63,11 @@ class Note extends BaseModel{
         $row = $query->fetch();
         $this->id = $row['id'];
     }
+    
+    public function delete(){
+        $query = DB::connection()->prepare('DELETE FROM NOTE WHERE id = :id');
+        $query->execute(array(
+            'id' => $this->id
+        ));
+    }
 }

@@ -62,6 +62,13 @@ class Time_And_Place extends BaseModel{
         return null;
     }
     
+    public function delete(){
+        $query = DB::connection()->prepare('DELETE FROM TIME_AND_PLACE WHERE id = :id');
+        $query->execute(array(
+            'id' => $this->id
+        ));
+    }
+    
     public function save(){
         $query = DB::connection()->prepare('INSERT INTO TIME_AND_PLACE (dow, tp_date, start_time, end_time, location, supercategory) VALUES (:dow, tp_date, start_time, end_time, location, supercategory) RETURNING id');
         $query->execute(array(
