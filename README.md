@@ -5,6 +5,11 @@ Yleisiä linkkejä:
 * [Linkki sovellukseeni](http://villtann.users.cs.helsinki.fi/muistilista/)
 * [Linkki dokumentaatiooni](https://github.com/Yskinator/Tsoha-Bootstrap/tree/master/doc)
 
+## Kirjautuminen
+
+* Käyttäjätunnus: Ville-Matti
+* Salasana: Ville-Matti123
+
 ## Työn aihe
 
  [Muistilista](https://advancedkittenry.github.io/suunnittelu_ja_tyoymparisto/aiheet/Muistilista.html), omiin käytännön tarpeisiini mukautettuna. Tavoitteena herokun tai yliopiston palvelimille sovellus jota käytän nykyisen työpöydällä asuvan tekstitiedostoni korvikkeena - tällä hetkellä kun siirtelen sitä läppärin ja pöytäkoneen välillä kömpelösti muistitikun avulla. Luonnollisesti alusta asti itseni tekemä muistilistaratkaisu on kaikkia kilpailijoita ylivoimaisesti parempi, ja siksi ainoa looginen ratkaisu ongelmaani.
