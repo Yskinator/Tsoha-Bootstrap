@@ -13,11 +13,14 @@
  */
 class CategoryController extends BaseController{
     public static function index(){
-        $root_category = Category::findByName('root');
+        self::check_logged_in();
+        $user = self::get_user_logged_in();
+        $root_category = Category::find($user->list_root);
         View::make('category/index.html', array('root_category' => $root_category));
     }
     
     public static function update(){
+        self::check_logged_in();
         $params = $_POST;
         $attributes = array(
             'name' => $params['name'],
@@ -33,12 +36,14 @@ class CategoryController extends BaseController{
         }
         else
         {
-            $root_category = Category::findByName('root');
+            $user = self::get_user_logged_in();
+            $root_category = Category::find($user->list_root);
             View::make('category/index.html', array('root_category' => $root_category,'errors' => $errors, 'attributes' => $attributes));
         }
     }
     
     public static function delete(){
+        self::check_logged_in();
         $params = $_POST;
         $category = Category::find($params['id']);
         $category->delete();
@@ -46,6 +51,7 @@ class CategoryController extends BaseController{
     }
     
     public static function store(){
+        self::check_logged_in();
         $params = $_POST;
         $attributes = array(
             'name' => $params['name'],

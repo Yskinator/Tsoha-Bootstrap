@@ -125,7 +125,7 @@
   </div>
 {% endif %}
 
-<h1>Käyttäjän Ville-Matti muistilista</h1>
+<h1>Käyttäjän {{user_logged_in.username}} muistilista</h1>
 {{ checklist.rootAddButton(root_category) }}
 <ul class="list-group">
     {{ checklist.display(root_category.subcategories) }}

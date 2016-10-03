@@ -32,3 +32,10 @@
       NoteController::store();
   });
 
+  $routes->post('/login', function() {
+      UserController::handleLogin();
+  });
+  
+  $routes->post('/logout', function() {
+      UserController::logout();
+  });
