@@ -56,6 +56,23 @@ class Users extends BaseModel{
         return null;
     }
     
+    public function authenticate($username, $password){
+        $query = DB::connection()->prepare('SELECT * FROM USERS WHERE username = :username AND password = :password LIMIT 1');
+        $query->execute(array('username' => $username, 'password' => $password));
+        $row = $query->fetch();
+        if($row){
+            $user = new Users(array(
+                'id' => $row['id'],
+                'username' => $row['username'],
+                'password' => $row['password'],
+                'list_root' => $row['list_root']
+            ));
+            return $user;
+        }else{
+          return null;
+        }
+    }
+    
     public function save(){
         $query = DB::connection()->prepare('INSERT INTO USERS (username, password, list_root) VALUES (:username, password, list_root) RETURNING id');
         $query->execute(array(
