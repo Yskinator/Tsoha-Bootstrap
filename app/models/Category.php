@@ -141,6 +141,21 @@ class Category extends BaseModel{
         $this->id = $row['id'];
     }
     
+    public function update(){
+        $query = DB::connection()->prepare('UPDATE CATEGORY SET name = :name WHERE id = :id');
+        $query->execute(array(
+            'name' => $this->name,
+            'id' => $this->id
+        ));
+    }
+    
+    public function delete(){
+        $query = DB::connection()->prepare('DELETE FROM CATEGORY WHERE id = :id');
+        $query->execute(array(
+            'id' => $this->id
+        ));
+    }
+    
     public function validateName(){
         //Tarkista, että nimi ei ole tyhjä tai null
         $errors = $this->validate_string_exists($this->name, 'Kategorian nimi');
