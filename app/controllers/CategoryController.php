@@ -17,6 +17,34 @@ class CategoryController extends BaseController{
         View::make('category/index.html', array('root_category' => $root_category));
     }
     
+    public static function update(){
+        $params = $_POST;
+        $attributes = array(
+            'name' => $params['name'],
+            'supercategory' => $params['supercategory'],
+            'id' => $params['id']
+        );
+        $category = new Category($attributes);
+        $errors = $category->errors();
+        if(count($errors) == 0)
+        {
+            $category->update();
+            Redirect::to('/categories', array('message' => 'Kategoriaa muokattu!'));
+        }
+        else
+        {
+            $root_category = Category::findByName('root');
+            View::make('category/index.html', array('root_category' => $root_category,'errors' => $errors, 'attributes' => $attributes));
+        }
+    }
+    
+    public static function delete(){
+        $params = $_POST;
+        $category = Category::find($params['id']);
+        $category->delete();
+        Redirect::to('/categories', array('message' => 'Kategoria poistettu!'));
+    }
+    
     public static function store(){
         $params = $_POST;
         $attributes = array(

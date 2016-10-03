@@ -20,6 +20,14 @@
       CategoryController::index();
   });
   
+  $routes->post('/categories/update', function() {
+      CategoryController::update();
+  });
+  
+  $routes->post('/categories/delete', function() {
+      CategoryController::delete();
+  });
+  
   $routes->post('/notes', function() {
       NoteController::store();
   });
