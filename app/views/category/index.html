@@ -78,7 +78,7 @@
 {% macro deleteCategoryButton(category) %}
     {% import _self as checklist %}
     <div class="btn-group">
-        <form method="post" action="categories/delete" style="display: inline-block">
+        <form method="post" action="categories/delete" class="destroy-form" data-confirm="Oletko varma, että haluat poistaa kategorian?" style="display: inline-block">
             <input type="hidden" name="id" value="{{ category.id }}" class="form-control">
             <button type="submit" class="btn btn-danger">Poista</button>
         </form>
