@@ -40,6 +40,10 @@
       NoteController::update();
   });  
   
+  $routes->post('/times_and_places', function() {
+      Time_And_PlaceController::store();
+  });
+  
   $routes->post('/login', function() {
       UserController::handleLogin();
   });

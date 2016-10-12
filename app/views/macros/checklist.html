@@ -2,9 +2,14 @@
     {% import _self as checklist %}
     {% for category in categories %}
         <li class="list-group-item">
-            <strong>{{ category.name }}</strong>{{ checklist.addCategoryButton(category) }} {{ checklist.addNoteButton(category) }}<a href="#" class="btn btn-default">Lisää aika/paikka</a> {{ checklist.editCategoryButton(category) }} {{ checklist.deleteCategoryButton(category) }}
-            {% if not category.subcategories is empty or not category.notes is empty or category.times_and_places is empty %}
+            <strong>{{ category.name }}</strong>{{ checklist.addCategoryButton(category) }} {{ checklist.addNoteButton(category) }} {{ checklist.addTime_And_PlaceButton(category) }} {{ checklist.editCategoryButton(category) }} {{ checklist.deleteCategoryButton(category) }}
+            {% if not category.subcategories is empty or not category.notes is empty or not category.times_and_places is empty %}
                 <ul class="list-group">
+                    {% for tp in category.times_and_places %}
+                        <li class="list-group-item">
+                            {{ tp.dow }} {{ tp.tp_date }} {{ tp.start_time }} - {{ tp.end_time }} {{ tp.location }}
+                        </li>
+                    {% endfor %}
                     {% for note in category.notes %}
                         <li class="list-group-item">
                             {{ note.note }}{{checklist.editNoteButton(note) }} {{ checklist.deleteNoteButton(note) }}
@@ -34,6 +39,51 @@
                   <input type="text" name="name" class="form-control">
                 </div>
 
+                <div class="form-group">
+                  <input type="hidden" name="supercategory" value="{{ category.id }}" class="form-control">
+                </div>
+
+                <div class="form-group">
+                  <button type="submit" class="btn btn-primary">Lisää</button>
+                </div>
+          </form>
+        </div>
+  </div>
+{% endmacro %}
+
+{% macro addTime_And_PlaceButton(category) %}
+    <div class="btn-group">
+        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+          Lisää aika ja paikka
+        </button>
+        <div class="dropdown-menu">
+            <form method="post" action="times_and_places">
+                <div class="form-group">
+                  <label>Viikonpäivä</label>
+                  <input type="text" name="dow" class="form-control">
+                </div>
+                
+                <div class="form-group">
+                  <label>Päivämäärä</label>
+                  <input type="date" name="tp_date" class="form-control">
+                </div>
+
+                <div class="form-group">
+                  <label>Alkuaika</label>
+                  <input type="time" name="start_time" class="form-control">
+                </div>
+                
+                <div class="form-group">
+                  <label>Loppuaika</label>
+                  <input type="time" name="end_time" class="form-control">
+                </div>
+                
+                <div class="form-group">
+                  <label>Sijainti</label>
+                  <input type="text" name="location" class="form-control">
+                </div>
+                
+                
                 <div class="form-group">
                   <input type="hidden" name="supercategory" value="{{ category.id }}" class="form-control">
                 </div>
