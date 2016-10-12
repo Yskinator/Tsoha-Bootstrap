@@ -19,8 +19,18 @@ class NoteController extends BaseController{
             'note' => $params['note'],
             'supercategory' => $params['supercategory']
         ));
-        $note->save();
-        Redirect::to('/categories', array('message' => 'Uusi merkintä lisätty!'));
+        $errors = $note->errors();
+        if(count($errors) == 0)
+        {
+            $note->save();
+            Redirect::to('/categories', array('message' => 'Merkintää lisätty!'));
+        }
+        else
+        {
+            $user = self::get_user_logged_in();
+            $root_category = Category::find($user->list_root);
+            View::make('category/index.html', array('root_category' => $root_category,'errors' => $errors, 'attributes' => $attributes));
+        }
     }
     
     public static function delete(){
