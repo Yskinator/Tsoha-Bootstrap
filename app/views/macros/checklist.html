@@ -2,7 +2,7 @@
     {% import _self as checklist %}
     {% for category in categories %}
         <li class="list-group-item">
-            <strong>{{ category.name }}</strong>{{ checklist.addCategoryButton(category) }} {{ note.addNoteButton(category) }}<a href="#" class="btn btn-default">Lisää aika/paikka</a> {{ checklist.editCategoryButton(category) }} {{ checklist.deleteCategoryButton(category) }}
+            <strong>{{ category.name }}</strong>{{ checklist.addCategoryButton(category) }} {{ checklist.addNoteButton(category) }}<a href="#" class="btn btn-default">Lisää aika/paikka</a> {{ checklist.editCategoryButton(category) }} {{ checklist.deleteCategoryButton(category) }}
             {% if not category.subcategories is empty or not category.notes is empty or category.times_and_places is empty %}
                 <ul class="list-group">
                     {% for note in category.notes %}
