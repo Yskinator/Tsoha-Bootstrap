@@ -5,6 +5,7 @@
     protected $validators;
 
     public function __construct($attributes = null){
+      $this->validators = array();
       // Käydään assosiaatiolistan avaimet läpi
       foreach($attributes as $attribute => $value){
         // Jos avaimen niminen attribuutti on olemassa...
