@@ -7,7 +7,7 @@
                 <ul class="list-group">
                     {% for note in category.notes %}
                         <li class="list-group-item">
-                            <p>{{ note.note }}</p>
+                            {{ note.note }}{{checklist.editNoteButton(note) }} {{ checklist.deleteNoteButton(note) }}
                         </li>
                     {% endfor %}
                     {{ checklist.display(category.subcategories) }}
@@ -100,6 +100,43 @@
 
                 <div class="form-group">
                   <button type="submit" class="btn btn-primary">Lisää</button>
+                </div>
+          </form>
+        </div>
+  </div>
+{% endmacro %}
+
+{% macro deleteNoteButton(note) %}
+    <div class="btn-group">
+        <form method="post" action="notes/delete" class="destroy-form" data-confirm="Oletko varma, että haluat poistaa merkinnän?" style="display: inline-block">
+            <input type="hidden" name="id" value="{{ note.id }}" class="form-control">
+            <button type="submit" class="btn btn-danger">Poista</button>
+        </form>
+  </div>
+{% endmacro %}
+
+{% macro editNoteButton(note) %}
+    <div class="btn-group">
+        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+          Muokkaa
+        </button>
+        <div class="dropdown-menu">
+            <form method="post" action="notes/update">
+                <div class="form-group">
+                  <label>Note</label>
+                  <input type="text" name="note" value="{{ note.note }}" class="form-control">
+                </div>
+
+                <div class="form-group">
+                  <input type="hidden" name="supercategory" value="{{ note.supercategory }}" class="form-control">
+                </div>
+                
+                <div class="form-group">
+                  <input type="hidden" name="id" value="{{ note.id }}" class="form-control">
+                </div>
+
+                <div class="form-group">
+                  <button type="submit" class="btn btn-primary">Muokkaa</button>
                 </div>
           </form>
         </div>

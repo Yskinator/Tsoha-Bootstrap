@@ -16,6 +16,7 @@ class Note extends BaseModel{
 
     public function __construct($attributes){
         parent::__construct($attributes);
+        $this->validators = array();
     }
     
     public static function all(){
@@ -52,6 +53,14 @@ class Note extends BaseModel{
         }
         
         return null;
+    }
+    
+    public function update(){
+        $query = DB::connection()->prepare('UPDATE NOTE SET note = :note WHERE id = :id');
+        $query->execute(array(
+            'note' => $this->note,
+            'id' => $this->id
+        ));
     }
     
     public function save(){

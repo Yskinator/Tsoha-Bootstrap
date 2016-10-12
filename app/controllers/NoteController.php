@@ -11,7 +11,7 @@
  *
  * @author ville-matti
  */
-class NoteController {
+class NoteController extends BaseController{
     
     public static function store(){
         $params = $_POST;
@@ -21,6 +21,37 @@ class NoteController {
         ));
         $note->save();
         Redirect::to('/categories', array('message' => 'Uusi merkintä lisätty!'));
+    }
+    
+    public static function delete(){
+        self::check_logged_in();
+        $params = $_POST;
+        $note = Note::find($params['id']);
+        $note->delete();
+        Redirect::to('/categories', array('message' => 'Merkintä poistettu!'));
+    }
+    
+    public static function update(){
+        self::check_logged_in();
+        $params = $_POST;
+        $attributes = array(
+            'note' => $params['note'],
+            'supercategory' => $params['supercategory'],
+            'id' => $params['id']
+        );
+        $note = new Note($attributes);
+        $errors = $note->errors();
+        if(count($errors) == 0)
+        {
+            $note->update();
+            Redirect::to('/categories', array('message' => 'Merkintää muokattu!'));
+        }
+        else
+        {
+            $user = self::get_user_logged_in();
+            $root_category = Category::find($user->list_root);
+            View::make('category/index.html', array('root_category' => $root_category,'errors' => $errors, 'attributes' => $attributes));
+        }
     }
 
 }

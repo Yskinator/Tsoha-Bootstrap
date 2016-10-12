@@ -31,7 +31,15 @@
   $routes->post('/notes', function() {
       NoteController::store();
   });
+  
+  $routes->post('/notes/delete', function() {
+      NoteController::delete();
+  });
 
+  $routes->post('/notes/update', function() {
+      NoteController::update();
+  });  
+  
   $routes->post('/login', function() {
       UserController::handleLogin();
   });
