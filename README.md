@@ -1,6 +1,6 @@
 # Tietokantasovelluksen esittelysivu
 
-Yleisiä linkkejä:
+## Yleisiä linkkejä:
 
 * [Linkki sovellukseeni](http://villtann.users.cs.helsinki.fi/muistilista/)
 * [Linkki dokumentaatiooni](https://github.com/Yskinator/Tsoha-Bootstrap/tree/master/doc)
