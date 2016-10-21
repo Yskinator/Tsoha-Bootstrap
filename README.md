@@ -4,6 +4,7 @@ Yleisiä linkkejä:
 
 * [Linkki sovellukseeni](http://villtann.users.cs.helsinki.fi/muistilista/)
 * [Linkki dokumentaatiooni](https://github.com/Yskinator/Tsoha-Bootstrap/tree/master/doc)
+Dokumentaatio poikkeuksellisesti jaettu kahteen pdf-tiedostoon, ~~koska unohdin alkuperäisen muokattavissa olevan tiedoston pöytäkoneelleni~~ teknisistä ja täysi ymmärrettävistä syistä johtuen. dokumentaatio.pdf jatkuu siis suoraan tiedostossa dokumentaatio2.pdf.
 
 ## Kirjautuminen
 
