@@ -34,6 +34,19 @@
         }
         return $errors;
     }
+    
+    public function validateSupercategoryExists($id){
+        $errors = array();
+        $query = DB::connection()->prepare('SELECT id FROM CATEGORY WHERE id = :supercategory LIMIT 1');
+            $query->execute(array('supercategory' => $id));
+            $row = $query->fetch();
+            
+            if(!$row){
+                $errors[] = 'Yläkategoriaa ei löytynyt tietokannasta.';
+            }
+        
+        return $errors;
+    }
 
     public function errors(){
       // Lisätään $errors muuttujaan kaikki virheilmoitukset taulukkona

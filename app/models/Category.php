@@ -179,13 +179,7 @@ class Category extends BaseModel{
     public function validateSupercategory(){
         $errors = array();
         if($this->name != "root"){
-            $query = DB::connection()->prepare('SELECT id FROM CATEGORY WHERE id = :supercategory LIMIT 1');
-            $query->execute(array('supercategory' => $this->supercategory));
-            $row = $query->fetch();
-            
-            if(!$row){
-                $errors[] = 'Yläkategoriaa ei löytynyt tietokannasta.';
-            }
+            $errors = array_merge($errors, $this->validateSupercategoryExists($this->supercategory));
         }
         else
         {
