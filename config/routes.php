@@ -48,6 +48,10 @@
       Time_And_PlaceController::delete();
   });
   
+  $routes->post('/times_and_places/update', function() {
+      Time_And_PlaceController::update();
+  });
+  
   $routes->post('/login', function() {
       UserController::handleLogin();
   });

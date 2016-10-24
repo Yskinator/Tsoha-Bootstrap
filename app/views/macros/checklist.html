@@ -8,13 +8,13 @@
                     {% for tp in category.times_and_places %}
                         {% if tp.end_time is defined and tp.end_time is not empty %}
                         <li class="list-group-item">
-                            {{ tp.dow }} {{ tp.tp_date }} {{ tp.start_time }} - {{ tp.end_time }} {{ tp.location }} {{ checklist.deleteTime_And_PlaceButton(tp) }}
+                            {{ tp.dow }} {{ tp.tp_date }} {{ tp.start_time }} - {{ tp.end_time }} {{ tp.location }} {{ checklist.editTime_And_PlaceButton(tp) }} {{ checklist.deleteTime_And_PlaceButton(tp) }}
                         </li>
                         {% else %}
                         <li class="list-group-item">
-                            {{ tp.dow }} {{ tp.tp_date }} {{ tp.start_time }} {{ tp.location }} {{ checklist.deleteTime_And_PlaceButton(tp) }}
+                            {{ tp.dow }} {{ tp.tp_date }} {{ tp.start_time }} {{ tp.location }} {{ checklist.editTime_And_PlaceButton(tp) }} {{ checklist.deleteTime_And_PlaceButton(tp) }}
                         </li>
-                        {% endif%}
+                        {% endif %}
                     {% endfor %}
                     {% for note in category.notes %}
                         <li class="list-group-item">
@@ -108,6 +108,55 @@
             <input type="hidden" name="id" value="{{ time_and_place.id }}" class="form-control">
             <button type="submit" class="btn btn-danger">Poista</button>
         </form>
+  </div>
+{% endmacro %}
+
+{% macro editTime_And_PlaceButton(tp) %}
+    <div class="btn-group">
+        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+          Muokkaa aikaa ja paikkaa
+        </button>
+        <div class="dropdown-menu">
+            <form method="post" action="times_and_places/update">
+                <div class="form-group">
+                  <label>Viikonpäivä</label>
+                  <input type="text" name="dow" value="{{ tp.dow }}" class="form-control">
+                </div>
+                
+                <div class="form-group">
+                  <label>Päivämäärä</label>
+                  <input type="date" name="tp_date" value="{{ tp.tp_date }}" class="form-control">
+                </div>
+
+                <div class="form-group">
+                  <label>Alkuaika</label>
+                  <input type="time" name="start_time" value="{{ tp.start_time }}" class="form-control">
+                </div>
+                
+                <div class="form-group">
+                  <label>Loppuaika</label>
+                  <input type="time" name="end_time" value="{{ tp.end_time }}" class="form-control">
+                </div>
+                
+                <div class="form-group">
+                  <label>Sijainti</label>
+                  <input type="text" name="location" value="{{ tp.location }}" class="form-control">
+                </div>
+                
+                
+                <div class="form-group">
+                  <input type="hidden" name="supercategory" value="{{ category.id }}" class="form-control">
+                </div>
+                
+                <div class="form-group">
+                    <input type="hidden" name="id" value="{{ tp.id }}" class="form-control">
+                </div>
+                
+                <div class="form-group">
+                  <button type="submit" class="btn btn-primary">Muokkaa</button>
+                </div>
+          </form>
+        </div>
   </div>
 {% endmacro %}
 

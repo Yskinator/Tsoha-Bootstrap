@@ -43,7 +43,40 @@ class Time_And_PlaceController extends BaseController{
         }
     }
     
-        public static function delete(){
+    public static function update(){
+        $params = $_POST;
+        //Replace empty strings with nulls so that the database handles empty dates correctly
+        foreach ($params as $key => $value)
+        {
+            if($value == ""){
+                $params[$key] = null;
+            }
+        }
+        $time_and_place = new Time_And_Place(array(
+            'dow' => $params['dow'],
+            'tp_date' => $params['tp_date'],
+            'start_time' => $params['start_time'],
+            'end_time' => $params['end_time'],
+            'location' => $params['location'],
+            'supercategory' => $params['supercategory'],
+            'id' => $params['id']
+        ));       
+        $errors = $time_and_place->errors();
+        if(count($errors) == 0)
+        {
+            $time_and_place->update();
+            Redirect::to('/categories', array('message' => 'Aika ja paikka lisätty!'));
+        }
+        else
+        {
+            $user = self::get_user_logged_in();
+            $root_category = Category::find($user->list_root);
+            View::make('category/index.html', array('root_category' => $root_category,'errors' => $errors, 'attributes' => $attributes));
+        }
+    }
+    
+    
+    public static function delete(){
         self::check_logged_in();
         $params = $_POST;
         $time_and_place = Time_And_Place::find($params['id']);

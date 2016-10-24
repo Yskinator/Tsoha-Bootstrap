@@ -69,6 +69,18 @@ class Time_And_Place extends BaseModel{
         ));
     }
     
+    public function update(){
+        $query = DB::connection()->prepare('UPDATE TIME_AND_PLACE SET dow = :dow, tp_date = :tp_date, start_time = :start_time, end_time = :end_time, location = :location WHERE id = :id');
+        $query->execute(array(
+            'dow' => $this->dow,
+            'tp_date' => $this->tp_date,
+            'start_time' => $this->start_time,
+            'end_time' => $this->end_time,
+            'location' => $this->location,
+            'id' => $this->id
+        ));
+    }
+    
     public function save(){
         $query = DB::connection()->prepare('INSERT INTO TIME_AND_PLACE (dow, tp_date, start_time, end_time, location, supercategory) VALUES (:dow, :tp_date, :start_time, :end_time, :location, :supercategory) RETURNING id');
         $query->execute(array(
