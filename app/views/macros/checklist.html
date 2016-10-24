@@ -1,27 +1,28 @@
-{% macro display(categories) %}
+{% macro display(categories, colorToggle) %}
     {% import _self as checklist %}
+    {% set colorToggle = not colorToggle%}
     {% for category in categories %}
-        <li class="list-group-item">
+        <li class="list-group-item {% if colorToggle %}colored{% endif %}">
             <strong>{{ category.name }}</strong>{{ checklist.addCategoryButton(category) }} {{ checklist.addNoteButton(category) }} {{ checklist.addTime_And_PlaceButton(category) }} {{ checklist.editCategoryButton(category) }} {{ checklist.deleteCategoryButton(category) }}
             {% if not category.subcategories is empty or not category.notes is empty or not category.times_and_places is empty %}
                 <ul class="list-group">
                     {% for tp in category.times_and_places %}
                         {% if tp.end_time is defined and tp.end_time is not empty %}
-                        <li class="list-group-item">
+                        <li class="list-group-item {% if colorToggle %}colored{% endif %}">
                             {{ tp.dow }} {{ tp.tp_date }} {{ tp.start_time }} - {{ tp.end_time }} {{ tp.location }} {{ checklist.editTime_And_PlaceButton(tp) }} {{ checklist.deleteTime_And_PlaceButton(tp) }}
                         </li>
                         {% else %}
-                        <li class="list-group-item">
+                        <li class="list-group-item {% if colorToggle %}colored{% endif %}">
                             {{ tp.dow }} {{ tp.tp_date }} {{ tp.start_time }} {{ tp.location }} {{ checklist.editTime_And_PlaceButton(tp) }} {{ checklist.deleteTime_And_PlaceButton(tp) }}
                         </li>
                         {% endif %}
                     {% endfor %}
                     {% for note in category.notes %}
-                        <li class="list-group-item">
+                        <li class="list-group-item {% if colorToggle %}colored{% endif %}">
                             {{ note.note }}{{checklist.editNoteButton(note) }} {{ checklist.deleteNoteButton(note) }}
                         </li>
                     {% endfor %}
-                    {{ checklist.display(category.subcategories) }}
+                    {{ checklist.display(category.subcategories, colorToggle) }}
                 </ul>
             {% endif %}
         </li>
