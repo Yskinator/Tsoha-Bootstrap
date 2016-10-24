@@ -16,7 +16,7 @@ class Time_And_Place extends BaseModel{
     
     public function __construct($attributes){
         parent::__construct($attributes);
-        $this->validators = array('validateDow');
+        $this->validators = array('validateDow', 'validateTp_date');
     }
     
     public static function all(){
@@ -105,4 +105,18 @@ class Time_And_Place extends BaseModel{
         return $errors;
     }
     
+    function validateTp_date()
+    {
+        $errors = array();
+        //If the date has been specified, it has to be an actual date.
+        if($this->tp_date != '' && $this->tp_date != null)
+        {
+            $date = DateTime::createFromFormat('Y-m-d', $this->tp_date);
+            if (!$date || $date->format('Y-m-d') !== $this->tp_date){
+                $errors[] = "Päivämäärä ei ole oikeaa muotoa.";
+            }
+        }
+        return $errors; 
+    }
+
 }
