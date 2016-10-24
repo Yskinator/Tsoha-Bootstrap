@@ -1,7 +1,7 @@
 {% macro display(categories) %}
     {% import _self as checklist %}
     {% for category in categories %}
-        <li class="list-group-item">
+        <li class="list-group-item category-container">
             <strong>{{ category.name }}</strong>{{ checklist.addCategoryButton(category) }} {{ checklist.addNoteButton(category) }} {{ checklist.addTime_And_PlaceButton(category) }} {{ checklist.editCategoryButton(category) }} {{ checklist.deleteCategoryButton(category) }}
             {% if not category.subcategories is empty or not category.notes is empty or not category.times_and_places is empty %}
                 <ul class="list-group">
