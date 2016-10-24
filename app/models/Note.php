@@ -16,6 +16,7 @@ class Note extends BaseModel{
 
     public function __construct($attributes){
         parent::__construct($attributes);
+        $this->validators = array('validateNote', 'validateSupercategory');
     }
     
     public static function all(){
@@ -77,5 +78,16 @@ class Note extends BaseModel{
         $query->execute(array(
             'id' => $this->id
         ));
+    }
+    
+    function validateSupercategory(){
+        return $this->validateSupercategoryExists($this->supercategory);
+    }
+    
+    function validateNote(){
+        $errors = array();
+        $errors = $this->validate_string_exists($this->note, "Merkintä");
+        $errors = array_merge($errors, $this->validate_string_length($this->note, 0, 200, "Merkinnän"));
+        return $errors;
     }
 }

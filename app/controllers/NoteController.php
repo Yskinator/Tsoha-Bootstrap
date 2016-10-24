@@ -15,10 +15,11 @@ class NoteController extends BaseController{
     
     public static function store(){
         $params = $_POST;
-        $note = new Note(array(
+        $attributes = array(
             'note' => $params['note'],
             'supercategory' => $params['supercategory']
-        ));
+        );
+        $note = new Note($attributes);
         $errors = $note->errors();
         if(count($errors) == 0)
         {
