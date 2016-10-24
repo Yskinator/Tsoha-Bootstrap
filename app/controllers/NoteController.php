@@ -29,8 +29,7 @@ class NoteController extends BaseController{
         else
         {
             $user = self::get_user_logged_in();
-            $root_category = Category::find($user->list_root);
-            View::make('category/index.html', array('root_category' => $root_category,'errors' => $errors, 'attributes' => $attributes));
+            Redirect::to('/categories', array('errors' => $errors, 'attributes' => $attributes));
         }
     }
     
@@ -60,8 +59,7 @@ class NoteController extends BaseController{
         else
         {
             $user = self::get_user_logged_in();
-            $root_category = Category::find($user->list_root);
-            View::make('category/index.html', array('root_category' => $root_category,'errors' => $errors, 'attributes' => $attributes));
+            Redirect::to('/categories', array('errors' => $errors, 'attributes' => $attributes));
         }
     }
 
