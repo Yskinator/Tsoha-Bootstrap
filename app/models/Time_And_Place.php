@@ -16,7 +16,7 @@ class Time_And_Place extends BaseModel{
     
     public function __construct($attributes){
         parent::__construct($attributes);
-        $this->validators = array('validateDow', 'validateTp_date');
+        $this->validators = array('validateDow', 'validateTp_date', 'validateStart_time');
     }
     
     public static function all(){
@@ -118,5 +118,16 @@ class Time_And_Place extends BaseModel{
         }
         return $errors; 
     }
-
+    
+    function validateStart_time()
+    {
+        $errors = array();
+        //If the date has been specified, it has to be an actual date.
+        $errors = $this->validate_string_exists($this->start_time, 'Aloitus aika');
+        $date = DateTime::createFromFormat('H:i', $this->start_time);
+        if (!$date || $date->format('H:i') !== $this->start_time){
+            $errors[] = "Aloitusaika ei ole oikeaa muotoa.";
+        }
+        return $errors; 
+    }
 }
