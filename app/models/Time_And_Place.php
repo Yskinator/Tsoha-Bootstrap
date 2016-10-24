@@ -16,7 +16,7 @@ class Time_And_Place extends BaseModel{
     
     public function __construct($attributes){
         parent::__construct($attributes);
-        $this->validators = array('validateDow', 'validateTp_date', 'validateStart_time', 'validateEnd_time');
+        $this->validators = array('validateDow', 'validateTp_date', 'validateStart_time', 'validateEnd_time', 'validateSupercategory');
     }
     
     public static function all(){
@@ -144,6 +144,10 @@ class Time_And_Place extends BaseModel{
             $errors[] = $timeName." ei ole oikeaa muotoa.";
         }
         return $errors;
+    }
+    
+    function validateSupercategory(){
+        return $this->validateSupercategoryExists($this->supercategory);
     }
     
     
