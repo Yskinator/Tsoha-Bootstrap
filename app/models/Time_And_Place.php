@@ -16,7 +16,7 @@ class Time_And_Place extends BaseModel{
     
     public function __construct($attributes){
         parent::__construct($attributes);
-        $this->validators = array('validateDow', 'validateTp_date', 'validateStart_time', 'validateEnd_time', 'validateSupercategory');
+        $this->validators = array('validateDow', 'validateTp_date', 'validateStart_time', 'validateEnd_time', 'validateLocation', 'validateSupercategory');
     }
     
     public static function all(){
@@ -148,6 +148,14 @@ class Time_And_Place extends BaseModel{
     
     function validateSupercategory(){
         return $this->validateSupercategoryExists($this->supercategory);
+    }
+    
+    function validateLocation(){
+        $errors = array();
+        if($this->location != '' && $this->location != null){
+            return $this->validate_string_length($this->location, 0, 200, "Sijainti");
+        }
+        return $errors;
     }
     
     
