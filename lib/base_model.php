@@ -27,10 +27,10 @@
     public function validate_string_length($str, $strMin, $strMax, $strName){
         $errors = array();
         if(strlen($str) < $strMin){
-            $errors[] = $strName.' täytyy olla vähintään '.$strMin.' merkkiä.';
+            $errors[] = $strName.' pituuden täytyy olla vähintään '.$strMin.' merkkiä.';
         }
         if(strlen($str) > $strMax){
-            $errors[] = $strName.' saa olla enintään '.$strMax.' merkkiä.';
+            $errors[] = $strName.' pituus saa olla enintään '.$strMax.' merkkiä.';
         }
         return $errors;
     }

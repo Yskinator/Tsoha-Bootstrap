@@ -21,14 +21,15 @@ class Time_And_PlaceController extends BaseController{
                 $params[$key] = null;
             }
         }
-        $time_and_place = new Time_And_Place(array(
+        $attributes = array(
             'dow' => $params['dow'],
             'tp_date' => $params['tp_date'],
             'start_time' => $params['start_time'],
             'end_time' => $params['end_time'],
             'location' => $params['location'],
             'supercategory' => $params['supercategory']
-        ));
+        );
+        $time_and_place = new Time_And_Place($attributes);       
         $errors = $time_and_place->errors();
         if(count($errors) == 0)
         {
@@ -52,7 +53,7 @@ class Time_And_PlaceController extends BaseController{
                 $params[$key] = null;
             }
         }
-        $time_and_place = new Time_And_Place(array(
+        $attributes = array(
             'dow' => $params['dow'],
             'tp_date' => $params['tp_date'],
             'start_time' => $params['start_time'],
@@ -60,7 +61,8 @@ class Time_And_PlaceController extends BaseController{
             'location' => $params['location'],
             'supercategory' => $params['supercategory'],
             'id' => $params['id']
-        ));       
+        );
+        $time_and_place = new Time_And_Place($attributes);       
         $errors = $time_and_place->errors();
         if(count($errors) == 0)
         {

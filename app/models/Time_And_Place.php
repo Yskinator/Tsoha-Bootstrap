@@ -16,6 +16,7 @@ class Time_And_Place extends BaseModel{
     
     public function __construct($attributes){
         parent::__construct($attributes);
+        $this->validators = array('validateDow');
     }
     
     public static function all(){
@@ -94,4 +95,14 @@ class Time_And_Place extends BaseModel{
         $row = $query->fetch();
         $this->id = $row['id'];
     }
+    
+    public function validateDow(){
+        $errors = array();
+        //If day of the week is specified, it should be between two - ma, ti, etc - to eleven - keskiviikko - characters long.
+        if($this->dow != '' && $this->dow != null){
+            $errors = $this->validate_string_length($this->dow, 2, 11, 'Viikonpäivän');
+        }
+        return $errors;
+    }
+    
 }
