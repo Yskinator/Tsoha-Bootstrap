@@ -124,10 +124,18 @@ class Time_And_Place extends BaseModel{
         $errors = array();
         //If the date has been specified, it has to be an actual date.
         $errors = $this->validate_string_exists($this->start_time, 'Aloitusaika');
-        $date = DateTime::createFromFormat('H:i', $this->start_time);
-        if (!$date || $date->format('H:i') !== $this->start_time){
-            $errors[] = "Aloitusaika ei ole oikeaa muotoa.";
-        }
+        $errors = array_merge($errors, $this->validateTimeFormat($this->start_time, "Aloitusaika"));
         return $errors; 
     }
+    
+    private function validateTimeFormat($time, $timeName){
+        $errors = array();
+        $dt = DateTime::createFromFormat('H:i', $time);
+        if (!$dt || $dt->format('H:i') !== $time){
+            $errors[] = $timeName." ei ole oikeaa muotoa.";
+        }
+        return $errors;
+    }
+    
+    
 }
