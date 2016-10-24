@@ -6,9 +6,15 @@
             {% if not category.subcategories is empty or not category.notes is empty or not category.times_and_places is empty %}
                 <ul class="list-group">
                     {% for tp in category.times_and_places %}
+                        {% if tp.end_time is defined and tp.end_time is not empty %}
                         <li class="list-group-item">
                             {{ tp.dow }} {{ tp.tp_date }} {{ tp.start_time }} - {{ tp.end_time }} {{ tp.location }}
                         </li>
+                        {% else %}
+                        <li class="list-group-item">
+                            {{ tp.dow }} {{ tp.tp_date }} {{ tp.start_time }} {{ tp.location }}
+                        </li>
+                        {% endif%}
                     {% endfor %}
                     {% for note in category.notes %}
                         <li class="list-group-item">

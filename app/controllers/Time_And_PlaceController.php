@@ -14,6 +14,13 @@
 class Time_And_PlaceController extends BaseController{
     public static function store(){
         $params = $_POST;
+        //Replace empty strings with nulls so that the database handles empty dates correctly
+        foreach ($params as $key => $value)
+        {
+            if($value == ""){
+                $params[$key] = null;
+            }
+        }
         $time_and_place = new Time_And_Place(array(
             'dow' => $params['dow'],
             'tp_date' => $params['tp_date'],
