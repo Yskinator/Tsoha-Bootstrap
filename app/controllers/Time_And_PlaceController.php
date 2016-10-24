@@ -43,4 +43,13 @@ class Time_And_PlaceController extends BaseController{
         }
     }
     
+        public static function delete(){
+        self::check_logged_in();
+        $params = $_POST;
+        $time_and_place = Time_And_Place::find($params['id']);
+        $time_and_place->delete();
+        Redirect::to('/categories', array('message' => 'Merkintä poistettu!'));
+    }
+    
+    
 }

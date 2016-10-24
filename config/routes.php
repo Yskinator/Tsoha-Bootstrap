@@ -44,6 +44,10 @@
       Time_And_PlaceController::store();
   });
   
+  $routes->post('/times_and_places/delete', function() {
+      Time_And_PlaceController::delete();
+  });
+  
   $routes->post('/login', function() {
       UserController::handleLogin();
   });

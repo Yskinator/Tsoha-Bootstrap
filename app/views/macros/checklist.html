@@ -8,11 +8,11 @@
                     {% for tp in category.times_and_places %}
                         {% if tp.end_time is defined and tp.end_time is not empty %}
                         <li class="list-group-item">
-                            {{ tp.dow }} {{ tp.tp_date }} {{ tp.start_time }} - {{ tp.end_time }} {{ tp.location }}
+                            {{ tp.dow }} {{ tp.tp_date }} {{ tp.start_time }} - {{ tp.end_time }} {{ tp.location }} {{ checklist.deleteTime_And_PlaceButton(tp) }}
                         </li>
                         {% else %}
                         <li class="list-group-item">
-                            {{ tp.dow }} {{ tp.tp_date }} {{ tp.start_time }} {{ tp.location }}
+                            {{ tp.dow }} {{ tp.tp_date }} {{ tp.start_time }} {{ tp.location }} {{ checklist.deleteTime_And_PlaceButton(tp) }}
                         </li>
                         {% endif%}
                     {% endfor %}
@@ -99,6 +99,15 @@
                 </div>
           </form>
         </div>
+  </div>
+{% endmacro %}
+
+{% macro deleteTime_And_PlaceButton(time_and_place) %}
+    <div class="btn-group">
+        <form method="post" action="times_and_places/delete" class="destroy-form" data-confirm="Oletko varma, että haluat poistaa ajan ja paikan?" style="display: inline-block">
+            <input type="hidden" name="id" value="{{ time_and_place.id }}" class="form-control">
+            <button type="submit" class="btn btn-danger">Poista</button>
+        </form>
   </div>
 {% endmacro %}
 
